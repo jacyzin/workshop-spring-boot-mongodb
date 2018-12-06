@@ -1,6 +1,8 @@
 package com.jacyzin.workshopspringbootmongodb.resource;
 
 import com.jacyzin.workshopspringbootmongodb.domain.User;
+import com.jacyzin.workshopspringbootmongodb.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -13,13 +15,16 @@ import java.util.List;
 @RequestMapping(value = "/users")
 public class UserResource {
 
+    @Autowired
+    private UserService userService;
+
     @GetMapping
     public ResponseEntity<List<User>> findAll() {
-        User maria = new User("1", "Maria Silva", "maria@live.com");
-        User alex = new User("2", "Alex  Silva", "alex@live.com");
-        List<User> users = new ArrayList<>();
-        users.addAll(Arrays.asList(maria, alex));
+        List<User> users = userService.findAll();
         return ResponseEntity.ok().body(users);
     }
+
+
+
 
 }
