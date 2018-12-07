@@ -2,6 +2,7 @@ package com.jacyzin.workshopspringbootmongodb.domain;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -10,6 +11,7 @@ import java.util.Objects;
 public class User implements Serializable {
 
     @Id
+    @Field(value="id")
     private String id;
     private String name;
     private String email;
