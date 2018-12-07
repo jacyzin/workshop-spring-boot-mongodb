@@ -6,12 +6,9 @@ import com.jacyzin.workshopspringbootmongodb.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -42,6 +39,12 @@ public class UserResource {
         user = userService.insert(user);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user.getId()).toUri();
         return ResponseEntity.created(uri).build();
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<UserDTO> delete(@PathVariable String id) {
+        userService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 
 
