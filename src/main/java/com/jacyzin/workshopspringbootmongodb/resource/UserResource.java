@@ -1,5 +1,6 @@
 package com.jacyzin.workshopspringbootmongodb.resource;
 
+import com.jacyzin.workshopspringbootmongodb.domain.Post;
 import com.jacyzin.workshopspringbootmongodb.domain.User;
 import com.jacyzin.workshopspringbootmongodb.dto.UserDTO;
 import com.jacyzin.workshopspringbootmongodb.service.UserService;
@@ -53,6 +54,12 @@ public class UserResource {
         user.setId(id);
         user = userService.update(user);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping(value = "/{id}/posts")
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
+        Optional<User> user = userService.findById(id);
+        return ResponseEntity.ok().body(user.get().getPosts());
     }
 
 
