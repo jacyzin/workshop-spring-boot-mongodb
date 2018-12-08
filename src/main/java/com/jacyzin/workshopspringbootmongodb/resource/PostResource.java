@@ -3,6 +3,7 @@ package com.jacyzin.workshopspringbootmongodb.resource;
 import com.jacyzin.workshopspringbootmongodb.domain.Post;
 import com.jacyzin.workshopspringbootmongodb.domain.User;
 import com.jacyzin.workshopspringbootmongodb.dto.UserDTO;
+import com.jacyzin.workshopspringbootmongodb.resource.util.URL;
 import com.jacyzin.workshopspringbootmongodb.service.PostService;
 import com.jacyzin.workshopspringbootmongodb.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,13 @@ public class PostResource {
     public ResponseEntity<Post> findById(@PathVariable String id) {
         Optional<Post> post = postService.findById(id);
         return ResponseEntity.ok().body(post.get());
+    }
+
+    @GetMapping(value = "/titlesearch")
+    public ResponseEntity<List<Post>> findByTitle(@RequestParam(value = "text", defaultValue = "") String text) {
+        text = URL.decodeParam(text);
+        List<Post> posts = postService.findByTitle(text);
+        return ResponseEntity.ok().body(posts);
     }
 
 }
